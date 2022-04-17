@@ -8,12 +8,13 @@
     <a href="/about">Conóceme</a>
   </header>
   <hr>
-  <h3 class="mt-5 mb-3">Últimos discos</h3>
+  <h3 class="mt-5 mb-3">Listado de discos</h3>
   {{#each articles}}
     <div class="card mb-3">
       <div class="card-body">
         <h5 class="card-title">{{this.artist}}</h5>
         <p class="card-text">{{this.album}}</p>
+        <p class="card-text">{{this.year}}</p>
         <a href="/articles/{{this.id}}" class="btn btn-primary btn-sm">Leer más</a>
       </div>
     </div>
