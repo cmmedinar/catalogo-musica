@@ -1,26 +1,26 @@
 const express = require('express')
-const ArticlesController = require('./controllers/ArticlesController')
+const CatalogController = require('./controllers/CatalogController')
 const PageController = require('./controllers/PageController')
 
 const router = express.Router()
 
 // Controllers
 const pageController = new PageController()
-const articlesController = new ArticlesController()
+const catalogController = new CatalogController()
 
 // Routes
-router.get('/', articlesController.renderHomeWithArticles)
+router.get('/', catalogController.renderHomeWithCatalog)
 router.get('/about', pageController.renderAbout)
 
-router.get('/articles/create', articlesController.renderArticleCreationForm)
-router.post('/articles/create', articlesController.insertAndRenderArticle)
+router.get('/catalog/create', catalogController.renderArticleCreationForm)
+router.post('/catalog/create', catalogController.insertAndRenderArticle)
 
-router.get('/articles/:id', articlesController.renderSingleArticle)
+router.get('/catalog/:id', catalogController.renderSingleArticle)
 
-router.get('/articles/:id/update', articlesController.renderArticleUpdateForm)
-router.post('/articles/:id/update', articlesController.updateAndRenderArticle)
+router.get('/catalog/:id/update', catalogController.renderArticleUpdateForm)
+router.post('/catalog/:id/update', catalogController.updateAndRenderArticle)
 
-router.post('/articles/:id/delete', articlesController.deleteArticleAndRenderResponse)
+router.post('/catalog/:id/delete', catalogController.deleteArticleAndRenderResponse)
 
 router.get('*', pageController.renderNotFound)
 

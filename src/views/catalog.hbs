@@ -1,12 +1,12 @@
 {{> navbar}}
 <div class="container mt-3">
-  <h1>{{title}}</h1>
-  <p>{{content}}</p>
+  <h1>{{artist}}</h1>
+  <p>{{album}}</p>
   <div class="mt-3 d-flex gap-2">
-    <a href="/articles/{{id}}/update">
+    <a href="/catalog/{{id}}/update">
       <button class="btn btn-primary btn-sm">Editar</button>
     </a>
-    <form action="/articles/{{id}}/delete" method="POST">
+    <form action="/catalog/{{id}}/delete" method="POST">
       <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
     </form>
   </div>
