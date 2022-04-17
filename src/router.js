@@ -12,15 +12,15 @@ const catalogController = new CatalogController()
 router.get('/', catalogController.renderHomeWithCatalog)
 router.get('/about', pageController.renderAbout)
 
-router.get('/catalog/create', catalogController.renderArticleCreationForm)
-router.post('/catalog/create', catalogController.insertAndRenderArticle)
+router.get('/catalog/create', catalogController.renderCatalogCreationForm)
+router.post('/catalog/create', catalogController.insertAndRenderCatalog)
 
-router.get('/catalog/:id', catalogController.renderSingleArticle)
+router.get('/catalog/:id', catalogController.renderSingleCatalog)
 
-router.get('/catalog/:id/update', catalogController.renderArticleUpdateForm)
-router.post('/catalog/:id/update', catalogController.updateAndRenderArticle)
+router.get('/catalog/:id/update', catalogController.renderCatalogUpdateForm)
+router.post('/catalog/:id/update', catalogController.updateAndRenderCatalog)
 
-router.post('/catalog/:id/delete', catalogController.deleteArticleAndRenderResponse)
+router.post('/catalog/:id/delete', catalogController.deleteCatalogAndRenderResponse)
 
 router.get('*', pageController.renderNotFound)
 
