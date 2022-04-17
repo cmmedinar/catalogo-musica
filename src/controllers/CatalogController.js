@@ -1,15 +1,15 @@
 class CatalogController {
   renderHomeWithCatalog (req, res) {
     const mockCatalog = [
-      { id: 1, artist: 'Artículo de prueba 1', album: 'Contenido de mi artículo' },
-      { id: 2, artist: 'Artículo de prueba 2', album: 'Contenido de mi artículo' }
+      { id: 1, artist: 'AC/DC', album: 'BACK IN BLACK' },
+      { id: 2, artist: 'NIRVANA', album: 'NEVERMIND' }
     ]
     res.render('home', {
       articles: mockCatalog
     })
   }
 
-  renderSingleArticle (req, res) {
+  renderSingleCatalog (req, res) {
     const id = req.params.id
 
     // TODO: Esta información debería venir de la base de datos
