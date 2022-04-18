@@ -1,15 +1,18 @@
+const CatalogDAO = require('../models/CatalogDAO')
 class CatalogController {
-  renderHomeWithCatalog (req, res) {
-    const mockCatalog = [
-      { id: 1, artist: 'AC/DC', album: 'BACK IN BLACK', year: '1970' },
-      { id: 2, artist: 'NIRVANA', album: 'NEVERMIND', year: '1990' }
-    ]
+  constructor (db) {
+    this.catalogDao = new CatalogDAO(db)
+    this.renderHomeWithCatalog = this.renderHomeWithCatalog.bind(this)
+  }
+
+  async renderHomeWithCatalog (req, res) {
+    const catalog = await this.catalogDao.getAll()
     res.render('home', {
-      catalog: mockCatalog
+      catalog
     })
   }
 
-  renderSingleCatalog (req, res) {
+  async renderSingleCatalog (req, res) {
     const id = req.params.id
 
     // TODO: Esta información debería venir de la base de datos
@@ -26,7 +29,7 @@ class CatalogController {
     res.render('catalog-form')
   }
 
-  renderCatalogUpdateForm (req, res) {
+  async renderCatalogUpdateForm (req, res) {
     const id = req.params.id
 
     // TODO: Esta información debería venir de la base de datos
@@ -38,7 +41,7 @@ class CatalogController {
     })
   }
 
-  insertAndRenderCatalog (req, res) {
+  async insertAndRenderCatalog (req, res) {
     const artist = req.body.artist
     const album = req.body.album
     const year = req.body.year
@@ -51,7 +54,7 @@ class CatalogController {
     res.redirect(`/catalog/${id}`)
   }
 
-  updateAndRenderCatalog (req, res) {
+  async updateAndRenderCatalog (req, res) {
     const id = req.params.id
     const artist = req.body.artist
     const album = req.body.album
@@ -62,7 +65,7 @@ class CatalogController {
     res.redirect(`/catalog/${id}`)
   }
 
-  deleteCatalogAndRenderResponse (req, res) {
+  async deleteCatalogAndRenderResponse (req, res) {
     const id = req.params.id
 
     console.log('Esto debería eliminar', { id })
