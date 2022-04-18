@@ -2,15 +2,11 @@ const express = require('express')
 const CatalogController = require('./controllers/CatalogController')
 const PageController = require('./controllers/PageController')
 const SqlClient = require('./lib/SqlCliente')
-const CatalogDAO = require('./models/dao/CatalogDAO')
 
 const router = express.Router()
 
 // Datrabase Client
 const sqlClient = new SqlClient()
-
-// const catalogDao = new CatalogDAO(sqlClient)
-// catalogDao.getAll().then(rows => console.log(rows))
 
 // Controllers
 const pageController = new PageController()
