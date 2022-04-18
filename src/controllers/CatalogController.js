@@ -5,7 +5,7 @@ class CatalogController {
       { id: 2, artist: 'NIRVANA', album: 'NEVERMIND', year: '1990' }
     ]
     res.render('home', {
-      articles: mockCatalog
+      catalog: mockCatalog
     })
   }
 
@@ -32,7 +32,7 @@ class CatalogController {
     // TODO: Esta información debería venir de la base de datos
     res.render('catalog-form', {
       id,
-      artis: 'Nombre del artista a editar',
+      artist: 'Nombre del artista a editar',
       album: 'Nombre del album a editar',
       year: 'Año de publicacion a editar'
     })
