@@ -1,8 +1,14 @@
-const CatalogDAO = require('../models/CatalogDAO')
+const CatalogDAO = require('../models/dao/CatalogDAO')
 class CatalogController {
   constructor (db) {
     this.catalogDao = new CatalogDAO(db)
     this.renderHomeWithCatalog = this.renderHomeWithCatalog.bind(this)
+    this.renderSingleCatalog = this.renderSingleCatalog.bind(this)
+    this.renderCatalogCreationForm = this.renderCatalogCreationForm.bind(this)
+    this.renderCatalogUpdateForm = this.renderCatalogUpdateForm.bind(this)
+    this.insertAndRenderCatalog = this.insertAndRenderCatalog.bind(this)
+    this.updateAndRenderCatalog = this.updateAndRenderCatalog.bind(this)
+    this.deleteCatalogAndRenderResponse = this.deleteCatalogAndRenderResponse.bind(this)
   }
 
   async renderHomeWithCatalog (req, res) {
@@ -15,13 +21,13 @@ class CatalogController {
   async renderSingleCatalog (req, res) {
     const id = req.params.id
 
-    // TODO: Esta información debería venir de la base de datos
+    const catalog = await this.catalogDao.getById(id)
 
     res.render('catalog', {
       id,
-      artist: 'Este es el artista',
-      album: 'Este es el album',
-      year: 'Este es el año de publicacion'
+      artist: catalog.artist,
+      album: catalog.album,
+      year_album: catalog.year_album
     })
   }
 
@@ -32,25 +38,26 @@ class CatalogController {
   async renderCatalogUpdateForm (req, res) {
     const id = req.params.id
 
-    // TODO: Esta información debería venir de la base de datos
+    const catalog = await this.catalogDao.getById(id)
+
     res.render('catalog-form', {
       id,
-      artist: 'Nombre del artista a editar',
-      album: 'Nombre del album a editar',
-      year: 'Año de publicacion a editar'
+      artist: catalog.artist,
+      album: catalog.album,
+      year_album: catalog.year_album
     })
   }
 
   async insertAndRenderCatalog (req, res) {
     const artist = req.body.artist
     const album = req.body.album
-    const year = req.body.year
-
-    console.log('Aquí se debería insertar el contenido en base de datos', { artist, album, year })
-
-    // TODO: Este ID debería venir como respuesta de la inserción en la base de datos
-    const id = 1
-
+    // eslint-disable-next-line camelcase
+    const year_album = req.body.year_album
+    // eslint-disable-next-line camelcase
+    const catalog = { artist, album, year_album }
+    // eslint-disable-next-line camelcase
+    // eslint-disable-next-line camelcase
+    const id = await this.catalogDao.create(catalog)
     res.redirect(`/catalog/${id}`)
   }
 
@@ -58,22 +65,25 @@ class CatalogController {
     const id = req.params.id
     const artist = req.body.artist
     const album = req.body.album
-    const year = req.body.year
+    // eslint-disable-next-line camelcase
+    const year_album = req.body.year_album
 
-    console.log('Aquí se debería actualizar el contenido en base de datos', { id, artist, album, year })
+    // eslint-disable-next-line camelcase
+    const catalog = { artist, album, year_album, id }
+    await this.catalogDao.update(catalog)
 
     res.redirect(`/catalog/${id}`)
   }
 
   async deleteCatalogAndRenderResponse (req, res) {
     const id = req.params.id
+    const catalog = await this.catalogDao.getById(id)
+    await this.catalogDao.delete(id)
 
-    console.log('Esto debería eliminar', { id })
-
-    // TODO: El título debe venir de la base de datos
     res.render('catalog-deleted', {
       id,
-      artist: 'Artista '
+      artist: catalog.artist,
+      album: catalog.album
     })
   }
 }

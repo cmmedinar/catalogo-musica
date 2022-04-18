@@ -3,7 +3,7 @@
   <header class="my-5">
     <h1>Catalogo de Musica</h1>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies maximus mi sed faucibus. Donec auctor, dui nec varius condimentum, tellus mauris lobortis libero, vel finibus neque leo vel nisi. Nullam tellus magna, porttitor nec dolor non, iaculis facilisis felis. Mauris pharetra accumsan augue, dapibus blandit nisi facilisis vitae. Suspendisse ultrices egestas libero sit amet sodales. Suspendisse eu velit id urna eleifend egestas. Etiam sit amet quam luctus, interdum nulla sed, faucibus nisl.
+      Registro discos para creacion de su catalogo de musica
     </p>
     <a href="/about">Conóceme</a>
   </header>
@@ -12,10 +12,10 @@
   {{#each catalog}}
     <div class="card mb-3">
       <div class="card-body">
-        <h5 class="card-title">{{this.artist}}</h5>
-        <p class="card-text">{{this.album}}</p>
-        <p class="card-text">{{this.year}}</p>
-        <a href="/catalog/{{this.id}}" class="btn btn-primary btn-sm">Leer más</a>
+        <h5 class="card-title">Artista: {{this.artist}}</h5>
+        <p class="card-text">Album: {{this.album}}</p>
+        <p class="card-text">Año publicacion: {{this.year_album}}</p>
+        <a href="/catalog/{{this.id}}" class="btn btn-primary btn-sm">Opciones</a>
       </div>
     </div>
   {{/each}}
