@@ -21,14 +21,23 @@ class CatalogController {
   async renderSingleCatalog (req, res) {
     const id = req.params.id
 
-    const catalog = await this.catalogDao.getById(id)
-
-    res.render('catalog', {
-      id,
-      artist: catalog.artist,
-      album: catalog.album,
-      year_album: catalog.year_album
-    })
+    try {
+      // throw Error('problema base datos')
+      const catalog = await this.catalogDao.getById(id)
+      if (!catalog) {
+        res.status(404).render('404')
+        return
+      }
+      res.render('catalog', {
+        id,
+        artist: catalog.artist,
+        album: catalog.album,
+        year_album: catalog.year_album
+      })
+    } catch (error) {
+      console.log(error)
+      res.status(500).render('500')
+    }
   }
 
   renderCatalogCreationForm (req, res) {
@@ -37,15 +46,22 @@ class CatalogController {
 
   async renderCatalogUpdateForm (req, res) {
     const id = req.params.id
-
-    const catalog = await this.catalogDao.getById(id)
-
-    res.render('catalog-form', {
-      id,
-      artist: catalog.artist,
-      album: catalog.album,
-      year_album: catalog.year_album
-    })
+    try {
+      const catalog = await this.catalogDao.getById(id)
+      if (!catalog) {
+        res.status(404).render('404')
+        return
+      }
+      res.render('catalog-form', {
+        id,
+        artist: catalog.artist,
+        album: catalog.album,
+        year_album: catalog.year_album
+      })
+    } catch (error) {
+      console.log(error)
+      res.status(500).render('500')
+    }
   }
 
   async insertAndRenderCatalog (req, res) {
@@ -57,8 +73,17 @@ class CatalogController {
     const catalog = { artist, album, year_album }
     // eslint-disable-next-line camelcase
     // eslint-disable-next-line camelcase
-    const id = await this.catalogDao.create(catalog)
-    res.redirect(`/catalog/${id}`)
+    try {
+      const id = await this.catalogDao.create(catalog)
+      if (!catalog) {
+        res.status(404).render('404')
+        return
+      }
+      res.redirect(`/catalog/${id}`)
+    } catch (error) {
+      console.log(error)
+      res.status(500).render('500')
+    }
   }
 
   async updateAndRenderCatalog (req, res) {
@@ -70,21 +95,37 @@ class CatalogController {
 
     // eslint-disable-next-line camelcase
     const catalog = { artist, album, year_album, id }
-    await this.catalogDao.update(catalog)
-
-    res.redirect(`/catalog/${id}`)
+    try {
+      await this.catalogDao.update(catalog)
+      if (!catalog) {
+        res.status(404).render('404')
+        return
+      }
+      res.redirect(`/catalog/${id}`)
+    } catch (error) {
+      console.log(error)
+      res.status(500).render('500')
+    }
   }
 
   async deleteCatalogAndRenderResponse (req, res) {
     const id = req.params.id
     const catalog = await this.catalogDao.getById(id)
-    await this.catalogDao.delete(id)
-
-    res.render('catalog-deleted', {
-      id,
-      artist: catalog.artist,
-      album: catalog.album
-    })
+    try {
+      if (!catalog) {
+        res.status(404).render('404')
+        return
+      }
+      await this.catalogDao.delete(id)
+      res.render('catalog-deleted', {
+        id,
+        artist: catalog.artist,
+        album: catalog.album
+      })
+    } catch (error) {
+      console.log(error)
+      res.status(500).render('500')
+    }
   }
 }
 
