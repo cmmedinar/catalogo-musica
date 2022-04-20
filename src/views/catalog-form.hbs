@@ -12,19 +12,19 @@
     Para el action, si viene un id será un post a /articles/:id/update, si no, será un post a /articles/create.
   -->
   <form action="/catalog/{{#if id}}{{id}}/update{{else}}create{{/if}}" method="POST">
-    <div class="col-8">
+    <div class="mb-3">
       <label for="artist" class="form-label">Artista</label>
-      <input type="text" class="form-control" name="artist" aria-describedby="titleHelp" required="true" value="{{artist}}">
+      <input type="text" class="form-control" name="artist" aria-describedby="artistHelp" required="true" value="{{artist}}">
       <div id="titleHelp" class="form-text">Ingresa el nombre del artista</div>
     </div>
-    <div class="col-8">
+    <div class="mb-3">
       <label for="album" class="form-label">Album</label>
-      <input class="form-control" name="album" aria-describedby="contentHelp">{{album}}</input>
+      <input type="text" class="form-control" name="album" aria-describedby="albumHelp" required="true" value="{{album}}">
       <div id="contentHelp" class="form-text">Ingresa el nombre del album</div>
     </div>
-    <div class="col-2">
+    <div class="mb-3">
       <label for="year_album" class="form-label">Año Publicacion</label>
-      <input class="form-control" name="year_album" aria-describedby="contentHelp">{{year_album}}</input>
+      <input type="text" class="form-control" name="year_album" aria-describedby="yearHelp" required="true" value="{{year_album}}">
       <div id="contentHelp" class="form-text">Ingresa el año de publicacion</div>
     </div>
     <div class="mb-3">
